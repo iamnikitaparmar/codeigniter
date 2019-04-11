@@ -17,4 +17,12 @@ class Usermodel extends CI_Model{
     {
     $this->db->query("delete  from user_details where user_id='".$id."'");
     }
+
+    public function fetch_data($id){
+      $this->db->where("user_id",$id);
+      $query= $this->db->get('user_details')->row();
+      return $query; 
+
+     
+    }
 }

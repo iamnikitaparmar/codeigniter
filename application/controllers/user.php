@@ -21,14 +21,14 @@ class User extends CI_Controller
         'email'  => $this->input->post('email'),  
         'gender'   => $this->input->post('gender'),  
         'birthdate' => $this->input->post('birthdate') , 
-        'mobileno'  => $this->input->post('email'),  
+        'mobileno'  => $this->input->post('mobileno'),  
         'address'   => $this->input->post('address'),  
         'state' => $this->input->post('state')  
     );
 
     $this->usermodel->insert($data);
 
-    redirect("user/index");
+    redirect("user");
   }
  
 public function delete(){
@@ -36,8 +36,17 @@ public function delete(){
     $this->load->model('usermodel');
     $id=$this->input->get('id');
     $this->usermodel->delete($id);
-    redirect("user/index");
+    redirect("user");
 }
   
+public function update(){
+  $user_id= $this->uri->segment(2);
+  $this->load->model("usermodel");
+  $data['user_data']=$this->usermodel->fetch_data($user_id);
+  $data['fetch_data'] = $this->usermodel->fetch();
+  $this->load->view("user_list",$data);
+  //redirect("user");
+}
+ 
 
 }
